@@ -26,10 +26,9 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _isButtonEnabled =
           _nimController.text.isNotEmpty && _passwordController.text.isNotEmpty;
-      print(
-          "NIM: ${_nimController.text}, Password: ${_passwordController.text}");
-      print("Button Enabled: $_isButtonEnabled");
     });
+    print("NIM: ${_nimController.text}, Password: ${_passwordController.text}");
+    print("Button Enabled: $_isButtonEnabled");
   }
 
   @override
@@ -64,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 12),
                     Text(
-                      'Welcome Back!',
+                      'Welcome back!',
                       style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 16,
@@ -78,6 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 hintText: 'NIM',
                 controller: _nimController,
                 onChanged: (text) {
+                  _checkFields();
                   print("NIM : $text");
                 },
               ),
@@ -87,6 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 suffixIcon: Icons.visibility_off,
                 controller: _passwordController,
                 onChanged: (text) {
+                  _checkFields();
                   print("Password : $text");
                 },
               ),
@@ -94,8 +95,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 margin: const EdgeInsets.only(top: 24),
                 child: CustomButton(
                   text: 'Login',
-                  color: Colors.blue,
-                  disabledColor: Colors.blue.shade200,
+                  color: const Color.fromRGBO(60, 75, 206, 1),
+                  disabledColor: const Color.fromRGBO(60, 75, 206, 0.50),
+                  enabledTextColor: Colors.white,
+                  disabledTextColor: const Color.fromRGBO(255, 255, 255, 0.75),
                   isEnabled: _isButtonEnabled,
                   onPressed: _isButtonEnabled
                       ? () {

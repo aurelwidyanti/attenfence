@@ -6,7 +6,8 @@ class CustomButton extends StatelessWidget {
   final Color disabledColor;
   final bool isEnabled;
   final VoidCallback? onPressed;
-  final Color textColor;
+  final Color disabledTextColor;
+  final Color enabledTextColor;
 
   const CustomButton({
     Key? key,
@@ -14,8 +15,9 @@ class CustomButton extends StatelessWidget {
     required this.color,
     required this.disabledColor,
     required this.isEnabled,
+    required this.enabledTextColor,
+    required this.disabledTextColor,
     this.onPressed,
-    this.textColor = Colors.grey,
   }) : super(key: key);
 
   @override
@@ -25,15 +27,36 @@ class CustomButton extends StatelessWidget {
       height: 48,
       child: ElevatedButton(
         onPressed: isEnabled ? onPressed : null,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: isEnabled ? color : disabledColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.resolveWith<Color>(
+            (Set<WidgetState> states) {
+              if (states.contains(WidgetState.disabled)) {
+                return disabledColor;
+              }
+              return color;
+            },
+          ),
+          foregroundColor: WidgetStateProperty.resolveWith<Color>(
+            (Set<WidgetState> states) {
+              if (states.contains(WidgetState.disabled)) {
+                return disabledTextColor;
+              }
+              return enabledTextColor;
+            },
+          ),
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24),
+            ),
           ),
         ),
         child: Text(
           text,
-          style: TextStyle(fontSize: 16, color: textColor),
+          style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 1,
+              color: isEnabled ? enabledTextColor : disabledTextColor),
         ),
       ),
     );

@@ -21,7 +21,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 18),
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
       height: 48,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -34,6 +34,7 @@ class CustomTextField extends StatelessWidget {
           Expanded(
             child: TextField(
               obscureText: obscureText,
+              controller: controller,
               onChanged: onChanged,
               decoration: InputDecoration(
                 hintText: hintText,
