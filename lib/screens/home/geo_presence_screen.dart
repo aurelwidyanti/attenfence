@@ -51,7 +51,7 @@ class GeoPresenceScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Interaksi Manusia dan Komputer',
+                        'Yaaaa',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
