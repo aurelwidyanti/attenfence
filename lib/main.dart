@@ -1,5 +1,6 @@
 import 'package:attendance_app/screens/home_screen.dart';
 import 'package:attendance_app/screens/login_screen.dart';
+import 'package:attendance_app/screens/profile_screen.dart';
 import 'package:attendance_app/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -9,9 +10,10 @@ void main() {
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
-    home: const SplashScreen(),
+    home: const HomeScreen(),
     routes: {
       '/home': (context) => const HomeScreen(),
+      '/login': (context) => const LoginScreen(),
     },
   ));
 }
