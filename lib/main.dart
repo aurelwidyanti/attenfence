@@ -1,3 +1,4 @@
+import 'package:attendance_app/screens/history_screen.dart';
 import 'package:attendance_app/screens/home_screen.dart';
 import 'package:attendance_app/screens/login_screen.dart';
 import 'package:attendance_app/screens/profile_screen.dart';
@@ -66,7 +67,7 @@ class _MainLayoutState extends State<MainLayout> {
         physics: const NeverScrollableScrollPhysics(),
         children: const [
           HomeScreen(),
-          Center(),
+          HistoryScreen(),
           ProfileScreen(),
         ],
       ),
