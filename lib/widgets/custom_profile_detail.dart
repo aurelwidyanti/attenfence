@@ -1,4 +1,3 @@
-import 'package:attendance_app/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomProfileDetail extends StatelessWidget {

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   final int currentIndex;
-  final Function(int) onTap;
+  final ValueChanged<int> onScreenChanged;
 
   const CustomNavigationBar({
     Key? key,
     required this.currentIndex,
-    required this.onTap,
+    required this.onScreenChanged,
   }) : super(key: key);
 
   @override
@@ -15,6 +15,16 @@ class CustomNavigationBar extends StatefulWidget {
 }
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
+  final List<Widget> _screens = [
+    const Center(child: Text('Home Screen')),
+    const Center(child: Text('History Screen')),
+    const Center(child: Text('Profile Screen')),
+  ];
+
+  void _onItemTapped(int index) {
+    widget.onScreenChanged(index);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
