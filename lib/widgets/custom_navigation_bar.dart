@@ -21,49 +21,37 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 80,
-      alignment: Alignment.bottomCenter,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.15),
-            spreadRadius: -5,
-            blurRadius: 10,
+    return BottomNavigationBar(
+      backgroundColor: Colors.white,
+      currentIndex: widget.currentIndex,
+      onTap: _onItemTapped,
+      selectedItemColor: const Color.fromRGBO(255, 215, 0, 1),
+      unselectedItemColor: const Color.fromARGB(255, 0, 0, 0),
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.home_filled,
+            size: 30,
           ),
-        ],
-      ),
-      child: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        currentIndex: widget.currentIndex,
-        onTap: _onItemTapped,
-        selectedItemColor: const Color.fromRGBO(255, 215, 0, 1),
-        unselectedItemColor: const Color.fromARGB(255, 0, 0, 0),
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home_filled,
-              size: 28,
-            ),
-            label: '',
+          label: '',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.history,
+            size: 30,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.history,
-              size: 28,
-            ),
-            label: '',
+          label: '',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.person_rounded,
+            size: 30,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person_rounded,
-              size: 30,
-            ),
-            label: '',
-          ),
-        ],
-      ),
+          label: '',
+        ),
+      ],
     );
   }
 }
