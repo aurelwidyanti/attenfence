@@ -1,4 +1,3 @@
-import 'package:attendance_app/widgets/custom_navigation_bar.dart';
 import 'package:attendance_app/widgets/custom_profile_detail.dart';
 import 'package:flutter/material.dart';
 
@@ -10,14 +9,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,10 +85,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: CustomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
       ),
     );
   }

@@ -10,7 +10,7 @@ void main() {
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
-    home: const ProfileScreen(),
+    home: const HomeScreen(),
     routes: {
       '/home': (context) => const HomeScreen(),
       '/login': (context) => const LoginScreen(),
