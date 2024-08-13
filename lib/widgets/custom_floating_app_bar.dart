@@ -4,7 +4,7 @@ class CustomFloatingAppBar extends StatelessWidget {
   final Function(String) onButtonTapped;
   final String currentScreen;
 
-  const CustomFloatingAppBar({
+  CustomFloatingAppBar({
     required this.onButtonTapped,
     required this.currentScreen,
     super.key,
@@ -36,60 +36,71 @@ class CustomFloatingAppBar extends StatelessWidget {
                     ]
                   : [],
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Stack(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    onButtonTapped('Geo Presence');
-                  },
+                AnimatedAlign(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                  alignment: currentScreen == 'Geo Presence'
+                      ? Alignment.centerLeft
+                      : Alignment.centerRight,
                   child: Container(
+                    width: 150,
+                    height: 40,
                     decoration: BoxDecoration(
-                      color: currentScreen == 'Geo Presence'
-                          ? const Color.fromRGBO(60, 75, 206, 1)
-                          : const Color.fromARGB(255, 255, 255, 255),
+                      color: const Color.fromRGBO(60, 75, 206, 1),
                       borderRadius: BorderRadius.circular(25),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 36,
-                      vertical: 10,
-                    ),
-                    child: Text(
-                      'Geo Presence',
-                      style: TextStyle(
-                          color: currentScreen == 'Geo Presence'
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    onButtonTapped('E-Presence');
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: currentScreen == 'E-Presence'
-                          ? const Color.fromRGBO(60, 75, 206, 1)
-                          : const Color.fromARGB(255, 255, 255, 255),
-                      borderRadius: BorderRadius.circular(25),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        onButtonTapped('Geo Presence');
+                      },
+                      child: Container(
+                        width: 150,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                        ),
+                        child: Text(
+                          'Geo Presence',
+                          style: TextStyle(
+                            color: currentScreen == 'Geo Presence'
+                                ? Colors.white
+                                : Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 36,
-                      vertical: 10,
+                    GestureDetector(
+                      onTap: () {
+                        onButtonTapped('E-Presence');
+                      },
+                      child: Container(
+                        width: 150,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                        ),
+                        child: Text(
+                          'E-Presence',
+                          style: TextStyle(
+                            color: currentScreen == 'E-Presence'
+                                ? Colors.white
+                                : Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
                     ),
-                    child: Text(
-                      'E-Presence',
-                      style: TextStyle(
-                          color: currentScreen == 'E-Presence'
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
+                  ],
                 ),
               ],
             ),
