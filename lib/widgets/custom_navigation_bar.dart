@@ -15,12 +15,6 @@ class CustomNavigationBar extends StatefulWidget {
 }
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
-  final List<Widget> _screens = [
-    const Center(child: Text('Home Screen')),
-    const Center(child: Text('History Screen')),
-    const Center(child: Text('Profile Screen')),
-  ];
-
   void _onItemTapped(int index) {
     widget.onScreenChanged(index);
   }
@@ -43,7 +37,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
       child: BottomNavigationBar(
         backgroundColor: Colors.white,
         currentIndex: widget.currentIndex,
-        onTap: widget.onTap,
+        onTap: _onItemTapped,
         selectedItemColor: const Color.fromRGBO(255, 215, 0, 1),
         unselectedItemColor: const Color.fromARGB(255, 0, 0, 0),
         items: const [
