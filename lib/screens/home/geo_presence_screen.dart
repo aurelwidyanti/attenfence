@@ -8,13 +8,12 @@ class GeoPresenceScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          SizedBox(
-            width: double.infinity,
-            height: double.infinity,
+          Expanded(
             child: Image.asset(
+              height: double.infinity,
               'assets/img/map.png',
-              fit: BoxFit.fitWidth,
-              alignment: Alignment.topCenter,
+              fit: BoxFit.fitHeight,
+              alignment: Alignment.center,
             ),
           ),
           Align(
