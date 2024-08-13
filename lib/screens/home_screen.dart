@@ -1,7 +1,7 @@
 import 'package:attendance_app/screens/home/geo_presence_screen.dart';
-import 'package:attendance_app/screens/profile_screen.dart';
-import 'package:attendance_app/widgets/custom_navigation_bar.dart';
+import 'package:attendance_app/screens/home/e_presence_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:attendance_app/widgets/custom_floating_app_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,28 +11,34 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
+  String _homeTab = 'Geo Presence';
 
-  final List<Widget> _screens = [
-    const GeoPresenceScreen(),
-    const Center(child: Text('History Screen')),
-    const ProfileScreen(),
-  ];
-
-  void _onScreenChanged(int index) {
+  void _onHomeTabChanged(String screen) {
     setState(() {
-      _selectedIndex = index;
+      _homeTab = screen;
     });
+  }
+
+  Widget _buildHomeScreen() {
+    if (_homeTab == 'Geo Presence') {
+      return const GeoPresenceScreen();
+    } else {
+      return const EPresenceScreen();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: _screens[_selectedIndex],
-      bottomNavigationBar: CustomNavigationBar(
-        currentIndex: _selectedIndex,
-        onScreenChanged: _onScreenChanged,
+      body: Stack(
+        children: [
+          _buildHomeScreen(),
+          CustomFloatingAppBar(
+            currentScreen: _homeTab,
+            onButtonTapped: _onHomeTabChanged,
+          ),
+        ],
       ),
     );
   }
