@@ -29,7 +29,7 @@ class CustomProfileDetail extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          ProfileDetailRow(label: 'Nama Mahasiswa', value: 'Lumine'),
+          ProfileDetailRow(label: 'Nama', value: 'Lumine'),
           ProfileDetailRow(label: 'NIM', value: 'A11.2022.14494'),
           ProfileDetailRow(label: 'Status', value: 'Aktif'),
           ProfileDetailRow(label: 'Dosen Wali', value: 'FARUZAN S.Kom, M.Kom'),
@@ -52,24 +52,27 @@ class ProfileDetailRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
         children: <Widget>[
-          Text(
-            '$label ',
-            style: const TextStyle(
-              fontSize: 16,
-              color: Colors.grey,
-              fontWeight: FontWeight.w500,
+          Container(
+            width: 100,
+            child: Text(
+              '$label ',
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.grey,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
-          const SizedBox(width: 10),
+          // const SizedBox(width: 3),
           Expanded(
             child: Text(
               value,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
               ),
-              textAlign: TextAlign.right,
+              textAlign: TextAlign.left,
             ),
           ),
         ],
