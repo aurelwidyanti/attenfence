@@ -1,3 +1,4 @@
+import 'package:attendance_app/widgets/custom_app_bar.dart';
 import 'package:attendance_app/widgets/custom_profile_detail.dart';
 import 'package:flutter/material.dart';
 
@@ -13,39 +14,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child: CustomAppBar(
+          title: 'Profile',
+        ),
+      ),
       body: Column(
         children: [
-          // AppBar with BoxDecoration
-          Container(
-            height: 120,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.15),
-                  spreadRadius: 0,
-                  blurRadius: 10,
-                ),
-              ],
-            ),
-            padding: const EdgeInsets.only(
-              top: 56,
-              bottom: 8,
-            ),
-            child: const Center(
-              child: Text(
-                'Profile',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.5,
-                ),
-              ),
-            ),
-          ),
           const SizedBox(height: 40),
-          // Rest of the body content
           const CircleAvatar(
             radius: 50,
             backgroundColor: Colors.grey,
