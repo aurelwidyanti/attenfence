@@ -13,8 +13,10 @@ void main() {
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
-    home: const SplashScreen(),
+    debugShowCheckedModeBanner: false,
+    home: const LoginScreen(),
     routes: {
+      '/splash': (context) => const SplashScreen(),
       '/home': (context) => const MainLayout(initialIndex: 0),
       '/history': (context) => const MainLayout(initialIndex: 1),
       '/profile': (context) => const MainLayout(initialIndex: 2),

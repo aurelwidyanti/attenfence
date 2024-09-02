@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:attendance_app/widgets/custom_app_bar.dart';
 import 'package:attendance_app/widgets/custom_attendance_item.dart';
 import 'package:attendance_app/widgets/custom_attendance_section.dart';

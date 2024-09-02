@@ -14,6 +14,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   bool _isButtonEnabled = false;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -27,8 +28,35 @@ class _LoginScreenState extends State<LoginScreen> {
       _isButtonEnabled =
           _nimController.text.isNotEmpty && _passwordController.text.isNotEmpty;
     });
-    print("NIM: ${_nimController.text}, Password: ${_passwordController.text}");
-    print("Button Enabled: $_isButtonEnabled");
+  }
+
+  Future<void> _login() async {
+    setState(() {
+      _isLoading = false;
+    });
+
+    String nim = _nimController.text;
+    String password = _passwordController.text;
+
+    try {
+      await Future.delayed(const Duration(seconds: 2));
+
+      if (nim == "a11" && password == "aurel") {
+        Navigator.pushReplacementNamed(context, '/splash');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Failed login")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Terjadi kesalahan, coba lagi nanti')),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -76,36 +104,27 @@ class _LoginScreenState extends State<LoginScreen> {
               CustomTextField(
                 hintText: 'NIM',
                 controller: _nimController,
-                onChanged: (text) {
-                  _checkFields();
-                  print("NIM : $text");
-                },
               ),
               CustomTextField(
                 hintText: 'Password',
                 obscureText: true,
                 suffixIcon: Icons.visibility_off,
                 controller: _passwordController,
-                onChanged: (text) {
-                  _checkFields();
-                  print("Password : $text");
-                },
               ),
               Container(
                 margin: const EdgeInsets.only(top: 24),
-                child: CustomButton(
-                  text: 'Login',
-                  color: const Color.fromRGBO(60, 75, 206, 1),
-                  disabledColor: const Color.fromRGBO(60, 75, 206, 0.50),
-                  enabledTextColor: Colors.white,
-                  disabledTextColor: const Color.fromRGBO(255, 255, 255, 0.75),
-                  isEnabled: _isButtonEnabled,
-                  onPressed: _isButtonEnabled
-                      ? () {
-                          print("Login button pressed");
-                        }
-                      : null,
-                ),
+                child: _isLoading
+                    ? const CircularProgressIndicator()
+                    : CustomButton(
+                        text: 'Login',
+                        color: const Color.fromRGBO(60, 75, 206, 1),
+                        disabledColor: const Color.fromRGBO(60, 75, 206, 0.50),
+                        enabledTextColor: Colors.white,
+                        disabledTextColor:
+                            const Color.fromRGBO(255, 255, 255, 0.75),
+                        isEnabled: _isButtonEnabled,
+                        onPressed: _isButtonEnabled ? _login : null,
+                      ),
               ),
             ],
           ),
