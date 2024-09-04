@@ -1,6 +1,7 @@
 import 'package:attendance_app/widgets/custom_button.dart';
 import 'package:attendance_app/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -32,16 +33,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _login() async {
     setState(() {
-      _isLoading = false;
+      _isLoading = true;
     });
 
     String nim = _nimController.text;
     String password = _passwordController.text;
 
     try {
-      await Future.delayed(const Duration(seconds: 2));
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: nim,
+        password: password,
+      );
 
-      if (nim == "a11" && password == "aurel") {
+      if (userCredential.user != null) {
         Navigator.pushReplacementNamed(context, '/splash');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -50,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Terjadi kesalahan, coba lagi nanti')),
+        SnackBar(content: Text('Error: $e')),
       );
     } finally {
       setState(() {
