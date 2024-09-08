@@ -1,6 +1,7 @@
 import 'package:attendance_app/widgets/custom_app_bar.dart';
 import 'package:attendance_app/widgets/custom_profile_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -10,6 +11,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final storage = FlutterSecureStorage();
+
+  Future<void> _logout() async {
+    await storage.delete(key: 'token');
+    Navigator.pushNamed(context, '/login');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,9 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const SizedBox(height: 40),
           // Logout Button
           ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/login');
-            },
+            onPressed: _logout,
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color.fromRGBO(226, 66, 66, 1),
               padding: const EdgeInsets.symmetric(

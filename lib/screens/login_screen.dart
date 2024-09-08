@@ -1,6 +1,10 @@
+import 'dart:convert';
+
+import 'package:attendance_app/network/api.dart';
 import 'package:attendance_app/widgets/custom_button.dart';
 import 'package:attendance_app/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _nimController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final storage = FlutterSecureStorage();
 
   bool _isButtonEnabled = false;
   bool _isLoading = false;
@@ -30,6 +35,13 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  void _showMsg(msg) {
+    final snackBar = SnackBar(
+      content: Text(msg),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   Future<void> _login() async {
     setState(() {
       _isLoading = false;
@@ -38,25 +50,27 @@ class _LoginScreenState extends State<LoginScreen> {
     String nim = _nimController.text;
     String password = _passwordController.text;
 
-    try {
-      await Future.delayed(const Duration(seconds: 2));
+    var data = {
+      'nim': nim,
+      'password': password,
+    };
 
-      if (nim == "a11" && password == "aurel") {
-        Navigator.pushReplacementNamed(context, '/splash');
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Failed login")),
-        );
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Terjadi kesalahan, coba lagi nanti')),
-      );
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
+    var response = await Network().post(data, 'login');
+    var body = jsonDecode(response.body ?? '{}');
+
+    if (response.statusCode == 200) {
+      await storage.write(key: 'token', value: jsonEncode(body['token']));
+      await storage.write(key: 'nim', value: jsonEncode(body['nim']));
+      await storage.write(key: 'name', value: jsonEncode(body['name']));
+      await storage.write(key: 'email', value: jsonEncode(body['email']));
+
+      Navigator.pushReplacementNamed(context, '/splash');
+    } else {
+      _showMsg(body['message']);
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
