@@ -56,13 +56,18 @@ class _LoginScreenState extends State<LoginScreen> {
     };
 
     var response = await Network().post(data, 'login');
+    print(response);
     var body = jsonDecode(response.body ?? '{}');
+    print(body);
 
-    if (response.statusCode == 200) {
-      await storage.write(key: 'token', value: jsonEncode(body['token']));
-      await storage.write(key: 'nim', value: jsonEncode(body['nim']));
-      await storage.write(key: 'name', value: jsonEncode(body['name']));
-      await storage.write(key: 'email', value: jsonEncode(body['email']));
+    if (response.statusCode == 200 && body['data']['token'] != null) {
+      final Map<String, dynamic> responseData = body['data'];
+      // Store token, nim, name, email in secure storage
+      await storage.write(
+          key: 'token', value: jsonEncode(responseData['token']));
+      await storage.write(key: 'nim', value: responseData['nim']);
+      await storage.write(key: 'name', value: responseData['name']);
+      await storage.write(key: 'email', value: responseData['email']);
 
       Navigator.pushReplacementNamed(context, '/splash');
     } else {

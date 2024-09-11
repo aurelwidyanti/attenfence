@@ -3,20 +3,19 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class Network {
-  final Uri _url = Uri.parse('https://33a4-36-72-215-236.ngrok-free.app/api/');
+  final Uri _url = Uri.parse('https://b1cd-36-81-24-168.ngrok-free.app/api/');
 
   String? _token;
 
   Future<void> _getToken() async {
     final storage = FlutterSecureStorage();
     var tokenJson = await storage.read(key: 'token') ?? '';
+    print("tokenJson: ${tokenJson}");
 
     if (tokenJson.isNotEmpty) {
       try {
-        Map<String, dynamic> token = jsonDecode(tokenJson);
-        if (token.containsKey('token')) {
-          _token = token['token'];
-        }
+        String? token = jsonDecode(tokenJson);
+        _token = token;
       } catch (e) {
         print("Error decoding JSON: $e");
       }

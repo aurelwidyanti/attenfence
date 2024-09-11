@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:attendance_app/screens/history_screen.dart';
 import 'package:attendance_app/screens/home_screen.dart';
 import 'package:attendance_app/screens/login_screen.dart';
@@ -6,15 +8,21 @@ import 'package:attendance_app/screens/splash_screen.dart';
 import 'package:attendance_app/widgets/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final storage = const FlutterSecureStorage();
+  var tokenJson = await storage.read(key: 'token');
+  String? token = tokenJson != null ? jsonDecode(tokenJson) : null;
+
   runApp(MaterialApp(
     title: 'Attendance',
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
     debugShowCheckedModeBanner: false,
-    home: const LoginScreen(),
+    initialRoute: token != null ? '/splash' : '/login',
     routes: {
       '/splash': (context) => const SplashScreen(),
       '/home': (context) => const MainLayout(initialIndex: 0),

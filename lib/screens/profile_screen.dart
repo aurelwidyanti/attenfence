@@ -1,7 +1,11 @@
+import 'dart:convert';
+
+import 'package:attendance_app/network/api.dart';
 import 'package:attendance_app/widgets/custom_app_bar.dart';
 import 'package:attendance_app/widgets/custom_profile_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -14,8 +18,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final storage = FlutterSecureStorage();
 
   Future<void> _logout() async {
-    await storage.delete(key: 'token');
-    Navigator.pushNamed(context, '/login');
+    var tokenJson = await storage.read(key: 'token');
+    String? token = tokenJson != null ? jsonDecode(tokenJson) : {};
+    var response = await Network().post(token, 'logout');
+
+    if (response.statusCode == 200) {
+      await storage.deleteAll();
+      Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error logging out'),
+        ),
+      );
+    }
   }
 
   @override
@@ -42,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           const SizedBox(height: 40),
           // Profile Details
-          const CustomProfileDetail(),
+          CustomProfileDetail(),
           const SizedBox(height: 40),
           // Logout Button
           ElevatedButton(
