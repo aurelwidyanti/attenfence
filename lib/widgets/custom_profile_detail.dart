@@ -1,3 +1,4 @@
+import 'package:attendance_app/widgets/custom_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -20,58 +21,47 @@ class CustomProfileDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, String?>>(
-        future: _readProfileData(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      future: _readProfileData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-          if (snapshot.hasError) {
-            return const Center(child: Text('Error loading profile data'));
-          }
+        if (snapshot.hasError) {
+          return const Center(child: Text('Error loading profile data'));
+        }
 
-          var profileData = snapshot.data ??
-              {
-                'nim': 'Unknown',
-                'name': 'Unknown',
-                'email': 'Unknown',
-              };
+        var profileData = snapshot.data ??
+            {
+              'nim': 'Unknown',
+              'name': 'Unknown',
+              'email': 'Unknown',
+            };
 
-          return Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 24,
-              vertical: 12,
-            ),
-            margin: const EdgeInsets.symmetric(horizontal: 24),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: const Color.fromRGBO(191, 191, 191, 1),
-                width: 1,
-              ),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 2,
-                  spreadRadius: 0,
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+        return CustomTable(
+          rows: [
+            TableRow(
+              children: [
                 ProfileDetailRow(
                     label: 'Nama', value: profileData['name'] ?? 'Unknown'),
-                ProfileDetailRow(
-                    label: 'NIM', value: profileData['nim'] ?? 'Unknown'),
-                ProfileDetailRow(
-                    label: 'Email', value: profileData['email'] ?? 'Unknown'),
-                ProfileDetailRow(label: 'Status', value: 'Aktif'),
               ],
             ),
-          );
-        });
+            TableRow(
+              children: [
+                ProfileDetailRow(
+                    label: 'NIM', value: profileData['nim'] ?? 'Unknown'),
+              ],
+            ),
+            TableRow(
+              children: [
+                ProfileDetailRow(
+                    label: 'Email', value: profileData['email'] ?? 'Unknown'),
+              ],
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
@@ -85,7 +75,7 @@ class ProfileDetailRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: <Widget>[
           Container(
