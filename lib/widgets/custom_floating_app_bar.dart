@@ -26,15 +26,13 @@ class CustomFloatingAppBar extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(50),
-              boxShadow: currentScreen == 'E-Presence'
-                  ? [
-                      const BoxShadow(
-                        color: Color.fromRGBO(0, 0, 0, 0.15),
-                        spreadRadius: 1,
-                        blurRadius: 1,
-                      ),
-                    ]
-                  : [],
+              boxShadow: const [
+                BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, 0.15),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                ),
+              ],
             ),
             child: Stack(
               children: [

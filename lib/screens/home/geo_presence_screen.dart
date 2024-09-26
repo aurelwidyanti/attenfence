@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class GeoPresenceScreen extends StatelessWidget {
   const GeoPresenceScreen({super.key});
+  static const LatLng myCurrentLocation = LatLng(-6.990258, 110.413802);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          Expanded(
-            child: Image.asset(
-              height: double.infinity,
-              'assets/img/map.png',
-              fit: BoxFit.fitHeight,
-              alignment: Alignment.center,
+          const Expanded(
+            child: GoogleMap(
+              initialCameraPosition:
+                  CameraPosition(target: myCurrentLocation, zoom: 10),
             ),
           ),
           Align(
@@ -50,7 +50,7 @@ class GeoPresenceScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Yaaaa',
+                        'PPB',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
@@ -59,7 +59,7 @@ class GeoPresenceScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 4),
                       Text(
-                        '09.30-12.00, Gedung H.5.9',
+                        '09.30-12.00, Gedung D.2.A',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 12,

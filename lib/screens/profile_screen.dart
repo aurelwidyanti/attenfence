@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:attendance_app/network/api.dart';
 import 'package:attendance_app/widgets/custom_app_bar.dart';
+import 'package:attendance_app/widgets/custom_schedule.dart';
 import 'package:attendance_app/widgets/custom_profile_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -47,6 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Column(
         children: [
           const SizedBox(height: 40),
+
           const CircleAvatar(
             radius: 50,
             backgroundColor: Colors.grey,
@@ -56,11 +58,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
               size: 64,
             ),
           ),
+
           const SizedBox(height: 40),
+
           // Profile Details
           CustomProfileDetail(),
+          CustomSchedule(),
+
           const SizedBox(height: 40),
           // Logout Button
+
           ElevatedButton(
             onPressed: _logout,
             style: ElevatedButton.styleFrom(

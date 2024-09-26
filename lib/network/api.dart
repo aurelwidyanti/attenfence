@@ -3,7 +3,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class Network {
-  final Uri _url = Uri.parse('https://b1cd-36-81-24-168.ngrok-free.app/api/');
+  final Uri _url =
+      Uri.parse('https://b9a5-125-163-230-109.ngrok-free.app/api/');
 
   String? _token;
 
