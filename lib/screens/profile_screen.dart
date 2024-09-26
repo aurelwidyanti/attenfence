@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:attendance_app/network/api.dart';
 import 'package:attendance_app/widgets/custom_app_bar.dart';
+import 'package:attendance_app/widgets/custom_menu.dart';
 import 'package:attendance_app/widgets/custom_schedule.dart';
 import 'package:attendance_app/widgets/custom_profile_detail.dart';
 import 'package:flutter/material.dart';
@@ -16,23 +17,35 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
 
   Future<void> _logout() async {
     var tokenJson = await storage.read(key: 'token');
     String? token = tokenJson != null ? jsonDecode(tokenJson) : {};
-    var response = await Network().post(token, 'logout');
 
-    if (response.statusCode == 200) {
-      await storage.deleteAll();
-      Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
-    } else {
+    try {
+      var response = await Network().post(token, 'logout');
+      if (response.statusCode == 200) {
+        await storage.deleteAll();
+        Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Error logging out'),
+          ),
+        );
+      }
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Error logging out'),
+        SnackBar(
+          content: Text('An error occurred: $e'),
         ),
       );
     }
+  }
+
+  void _schedule() {
+    Navigator.pushNamed(context, '/schedule');
   }
 
   @override
@@ -42,13 +55,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: CustomAppBar(
+          width: 342,
           title: 'Profile',
         ),
       ),
       body: Column(
         children: [
           const SizedBox(height: 40),
-
           const CircleAvatar(
             radius: 50,
             backgroundColor: Colors.grey,
@@ -58,16 +71,50 @@ class _ProfileScreenState extends State<ProfileScreen> {
               size: 64,
             ),
           ),
-
           const SizedBox(height: 40),
-
-          // Profile Details
           CustomProfileDetail(),
-          CustomSchedule(),
-
+          const SizedBox(height: 8),
+          CustomMenu(
+            menuItems: [
+              MenuItem(
+                icon: Icons.schedule,
+                label: 'Schedule',
+                onTap: _schedule,
+                color: const Color.fromRGBO(0, 0, 255, 1),
+              ),
+              MenuItem(
+                icon: Icons.schedule,
+                label: 'Schedule',
+                onTap: _schedule,
+                color: const Color.fromRGBO(0, 0, 255, 1),
+              ),
+              MenuItem(
+                icon: Icons.schedule,
+                label: 'Schedule',
+                onTap: _schedule,
+                color: const Color.fromRGBO(0, 0, 255, 1),
+              ),
+              MenuItem(
+                icon: Icons.schedule,
+                label: 'Schedule',
+                onTap: _schedule,
+                color: const Color.fromRGBO(0, 0, 255, 1),
+              ),
+              MenuItem(
+                icon: Icons.schedule,
+                label: 'Schedule',
+                onTap: _schedule,
+                color: const Color.fromRGBO(0, 0, 255, 1),
+              ),
+              MenuItem(
+                icon: Icons.schedule,
+                label: 'Schedule',
+                onTap: _schedule,
+                color: const Color.fromRGBO(0, 0, 255, 1),
+              ),
+            ],
+          ),
           const SizedBox(height: 40),
-          // Logout Button
-
           ElevatedButton(
             onPressed: _logout,
             style: ElevatedButton.styleFrom(
