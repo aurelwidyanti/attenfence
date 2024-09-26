@@ -21,37 +21,53 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: Colors.white,
-      currentIndex: widget.currentIndex,
-      onTap: _onItemTapped,
-      selectedItemColor: const Color.fromRGBO(255, 215, 0, 1),
-      unselectedItemColor: const Color.fromARGB(255, 0, 0, 0),
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.home_filled,
-            size: 30,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.25),
+            spreadRadius: 2,
+            blurRadius: 8,
+            offset: const Offset(0, 0), // changes position of shadow
           ),
-          label: '',
+        ],
+      ),
+      child: SizedBox(
+        height: 72, // Set your desired height here
+        child: BottomNavigationBar(
+          backgroundColor: Colors.white,
+          currentIndex: widget.currentIndex,
+          onTap: _onItemTapped,
+          selectedItemColor: const Color.fromRGBO(255, 215, 0, 1),
+          unselectedItemColor: const Color.fromARGB(255, 0, 0, 0),
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home_filled,
+                size: 30,
+              ),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.history,
+                size: 30,
+              ),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person_rounded,
+                size: 30,
+              ),
+              label: '',
+            ),
+          ],
         ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.history,
-            size: 30,
-          ),
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.person_rounded,
-            size: 30,
-          ),
-          label: '',
-        ),
-      ],
+      ),
     );
   }
 }
