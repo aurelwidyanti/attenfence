@@ -20,6 +20,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: CustomAppBar(
+          width: 342,
           title: 'Attendance Report',
         ),
       ),
