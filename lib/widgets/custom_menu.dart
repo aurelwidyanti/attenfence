@@ -47,9 +47,9 @@ class CustomMenu extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: item.color, // Use the color from the MenuItem
+              color: item.color,
               shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(18),
             ),
             child: Icon(item.icon, size: 40, color: Colors.white),
           ),
@@ -58,8 +58,7 @@ class CustomMenu extends StatelessWidget {
             item.label,
             style: const TextStyle(
               fontSize: 14,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.5,
+              fontWeight: FontWeight.w500,
               color: Colors.black,
             ),
             textAlign: TextAlign.center,
